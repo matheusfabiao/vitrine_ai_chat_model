@@ -1,0 +1,46 @@
+[project]
+name = "ai-presentation"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard]>=0.115.12",
+    "langchain>=0.3.25",
+    "langchain-ollama>=0.3.2",
+    "pydantic-settings>=2.9.1",
+    "streamlit>=1.45.1",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.10",
+    "taskipy>=1.14.1",
+]
+
+
+[tool.ruff]
+line-length = 79
+extend-exclude = ['migrations']
+
+[tool.ruff.lint]
+preview = true
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+ignore = ['PLR2004']  # Ignore magic number warning
+
+[tool.ruff.format]
+preview = true
+quote-style = 'single'
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = '-p no:warnings'
+
+[tool.taskipy.tasks]
+lint = 'ruff check'
+
+pre_format = 'ruff check --fix'
+format = 'ruff format'
+
+pre_run = 'task format'
+run = 'streamlit run src/app.py'
