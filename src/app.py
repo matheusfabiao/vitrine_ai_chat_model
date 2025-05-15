@@ -3,8 +3,8 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 from langchain_ollama import ChatOllama
 
-from src.config.logger import logger
-from src.config.settings import settings
+from config.logger import logger
+from config.settings import settings
 
 st.set_page_config(
     'Assistente de IA',
