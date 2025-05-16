@@ -1,7 +1,7 @@
 import streamlit as st
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
-from langchain_ollama import ChatOllama
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from config.logger import logger
 from config.settings import settings
@@ -18,11 +18,12 @@ st.title('Assistente de IA')
 
 human_message = st.chat_input('Digite sua mensagem aqui...')
 
-model = ChatOllama(
-    model=settings.OLLAMA_AI_MODEL,
-    temperature=settings.OLLAMA_AI_TEMPERATURE,
+model = ChatGoogleGenerativeAI(
+    model=settings.GOOGLE_AI_MODEL,
+    temperature=settings.GOOGLE_AI_TEMPERATURE,
+    api_key=settings.GOOGLE_API_KEY,
 )
-logger.info(f'Modelo de linguagem criado: {model}')
+logger.info(f'Modelo de linguagem criado: {model.model}')
 
 if 'chats' not in st.session_state:
     st.session_state.chats = []
@@ -38,7 +39,7 @@ if human_message:
 
     prompt = ChatPromptTemplate.from_messages([
         ('system', 'Você é um assistente de IA muito inteligente e útil.'),
-        ('human', '{input}'),
+        ('human', 'Responda de forma breve e objetiva: {input}'),
     ])
     logger.debug(f'Prompt criado: {prompt}')
 

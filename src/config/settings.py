@@ -6,8 +6,9 @@ class Settings(BaseSettings):
         env_file='env_files/.env',
         env_file_encoding='utf-8',
     )
-    OLLAMA_AI_MODEL: str
-    OLLAMA_AI_TEMPERATURE: float
+    GOOGLE_API_KEY: str
+    GOOGLE_AI_MODEL: str
+    GOOGLE_AI_TEMPERATURE: float
 
 
 settings = Settings()
